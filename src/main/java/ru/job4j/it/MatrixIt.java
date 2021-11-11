@@ -1,6 +1,5 @@
 package ru.job4j.it;
 
-import javax.lang.model.type.NullType;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
