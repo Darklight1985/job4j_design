@@ -21,12 +21,13 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean delete(String id) {
+        boolean rsl = false;
         T search = findById(id);
-        if (search.equals(-1)) {
-            return false;
+        if (!search.equals(-1)) {
+            mem.remove(search);
+            rsl = true;
         }
-        mem.remove(search);
-        return true;
+        return rsl;
     }
 
     @Override
