@@ -33,4 +33,29 @@ public class ForwardLinkedTest {
         Iterator<Integer> it = linked.iterator();
         assertThat(it.next(), is(2));
     }
+
+    @Test
+    public void whenPushThenPoll() {
+        ForwardLinked<Integer> stack = new ForwardLinked<>();
+        stack.addFirst(1);
+        assertThat(stack.deleteFirst(), is(1));
+    }
+
+    @Test
+    public void whenPushPollThenPushPoll() {
+        ForwardLinked<Integer> stack = new ForwardLinked<>();
+        stack.addFirst(1);
+        stack.deleteFirst();
+        stack.addFirst(2);
+        assertThat(stack.deleteFirst(), is(2));
+    }
+
+    @Test
+    public void whenPushPushThenPollPoll() {
+        ForwardLinked<Integer> stack = new ForwardLinked<>();
+        stack.addFirst(1);
+        stack.addFirst(2);
+        stack.deleteFirst();
+        assertThat(stack.deleteFirst(), is(1));
+    }
 }
