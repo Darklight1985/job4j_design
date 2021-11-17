@@ -31,7 +31,7 @@ public class SimpleLinkedList<E> implements List<E> {
         E rsl = null;
         int searchIndex = 0;
         Node<E> eNode = first;
-        while (eNode != null) {
+        while (searchIndex <= index) {
             if (searchIndex == index) {
                 rsl = eNode.item;
             }
