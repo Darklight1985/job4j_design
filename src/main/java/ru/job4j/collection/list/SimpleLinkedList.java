@@ -28,17 +28,13 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        E rsl = null;
         int searchIndex = 0;
         Node<E> eNode = first;
-        while (searchIndex <= index) {
-            if (searchIndex == index) {
-                rsl = eNode.item;
-            }
+        while (searchIndex < index) {
             eNode = eNode.next;
             searchIndex++;
         }
-        return rsl;
+        return eNode.item;
     }
 
     @Override
