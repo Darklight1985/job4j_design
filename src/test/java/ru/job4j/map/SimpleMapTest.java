@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleMapTest {
@@ -64,10 +66,19 @@ public class SimpleMapTest {
     }
 
     @Test
-    public void whenGetIteratorTwiceThenStartAlwaysFromBeginning() {
-        map.put(0, "S");
-        map.put(1, "V");
-        map.iterator().next();
-        Assert.assertEquals(Integer.valueOf(0), map.iterator().next());
+    public void whenGetIteratorTwiceAndNExt() {
+        Iterator<Integer> iterator = map.iterator();
+        Assert.assertEquals(Integer.valueOf(1), iterator.next());
+        iterator.next();
+        Assert.assertEquals(Integer.valueOf(4), iterator.next());
+    }
+
+   @Test(expected = ConcurrentModificationException.class)
+    public void whenAddAfterGetIteratorThenMustBeException() {
+        Iterator<Integer> iterator = map.iterator();
+        Assert.assertEquals(Integer.valueOf(1), iterator.next());
+        map.put(2, "Oshibka");
+        iterator.next();
+        Assert.assertEquals(Integer.valueOf(4), iterator.next());
     }
 }
