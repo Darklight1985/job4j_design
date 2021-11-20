@@ -81,5 +81,4 @@ public class SimpleMapTest {
         iterator.next();
         Assert.assertEquals(Integer.valueOf(4), iterator.next());
     }
-
 }
