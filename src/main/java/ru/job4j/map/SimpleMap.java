@@ -56,11 +56,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V rsl = null;
-        for (MapEntry<K, V> mapEntry: table) {
-            if (mapEntry != null) {
-                if (mapEntry.key == key) {
-                    rsl = mapEntry.value;
-                }
+        int indeks = indexFor(hash(key.hashCode()));
+        if (table[indeks] != null) {
+            if (table[indeks].key == key) {
+                rsl = table[indeks].value;
             }
         }
         return rsl;
