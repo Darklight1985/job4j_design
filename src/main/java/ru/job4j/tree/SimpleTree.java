@@ -29,11 +29,7 @@ public class SimpleTree<E> implements Tree<E> {
 
     @Override
     public boolean isBinary() {
-        boolean rsl = true;
-        if (!findByPredicate(s -> s.getChildren().size() > 2).isEmpty()) {
-            rsl = false;
-        }
-        return rsl;
+        return findByPredicate(s -> s.getChildren().size() > 2).isEmpty();
     }
 
     private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
