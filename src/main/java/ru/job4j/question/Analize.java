@@ -21,7 +21,7 @@ public class Analize {
           if (userCurEl.getId() > 3) {
               added++;
           }
-          while (userIteratorPrev.hasNext()) {
+          if (userIteratorPrev.hasNext()) {
               User userPrevEl = userIteratorPrev.next();
               if (userPrevEl == userCurEl) {
                   break;
