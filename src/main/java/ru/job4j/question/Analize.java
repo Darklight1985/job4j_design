@@ -23,12 +23,9 @@ public class Analize {
           }
           if (userIteratorPrev.hasNext()) {
               User userPrevEl = userIteratorPrev.next();
-              if (userPrevEl == userCurEl) {
-                  break;
-              } else {
+              if (userPrevEl != userCurEl)  {
                   if (userPrevEl.getId() == userCurEl.getId()) {
                       changed++;
-                      break;
                   } else {
                       deleted++;
                   }
