@@ -9,29 +9,43 @@ public class Analize {
         int added = 0;
         int changed = 0;
         int deleted = 0;
+
         List<User> previousList = previous.stream().collect(Collectors.toList());
         List<User> currentList = current.stream().collect(Collectors.toList());
+        previousList.remove(currentList);
+
         Collections.sort(currentList);
         Collections.sort(previousList);
-       Iterator<User> userIteratorCur = currentList.iterator();
-        Iterator<User> userIteratorPrev = previousList.iterator();
+        ListIterator<User> userIteratorCur = currentList.listIterator();
+        ListIterator<User> userIteratorPrev = previousList.listIterator();
 
-      while (userIteratorCur.hasNext()) {
-          User userCurEl = userIteratorCur.next();
-          if (userCurEl.getId() > 3) {
-              added++;
-          }
-          if (userIteratorPrev.hasNext()) {
-              User userPrevEl = userIteratorPrev.next();
-              if (userPrevEl != userCurEl)  {
-                  if (userPrevEl.getId() == userCurEl.getId()) {
-                      changed++;
-                  } else {
-                      deleted++;
-                  }
-              }
-          }
-      }
+        while (userIteratorCur.hasNext()) {
+            User userCurEl = userIteratorCur.next();
+            if (userIteratorPrev.hasNext()) {
+                User userPrevEl = userIteratorPrev.next();
+                if (userPrevEl != userCurEl && userPrevEl.getId() == userCurEl.getId()) {
+                    changed++;
+                    userIteratorCur.remove();
+                    userIteratorPrev.remove();
+                }
+            }
+        }
+        ListIterator<User> userIteratorCurNew = currentList.listIterator();
+        ListIterator<User> userIteratorPrevNew = previousList.listIterator();
+
+        while (userIteratorCurNew.hasNext()) {
+            User userCurEl = userIteratorCurNew.next();
+            if (!previousList.contains(userCurEl)) {
+                added++;
+            }
+        }
+
+        while (userIteratorPrevNew.hasNext()) {
+            User userPrevEl = userIteratorPrevNew.next();
+            if (!currentList.contains(userPrevEl)) {
+               deleted++;
+            }
+        }
         return new Info(added, changed, deleted);
     }
 }

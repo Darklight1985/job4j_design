@@ -73,4 +73,15 @@ public class AnalizeTest {
                 is(new Info(1, 1, 1))
         );
     }
+
+    @Test
+    public void whenOnlyOneDeleted() {
+        User u1 = new User(11, "A");
+        User u2 = new User(25, "B");
+        Set<User> previous = Set.of(u1, u2);
+        Set<User> current = Set.of(u1);
+        assertThat(Analize.diff(previous, current),
+                is(new Info(0, 0, 1)));
+
+    }
 }
