@@ -2,6 +2,9 @@ package ru.job4j.examen;
 
 import java.util.*;
 
+/**
+ * Метод определяет список уникальных символов в предложении
+ */
 public class CollectionPro {
     public List<Character> unique(String sentense) {
        char[] characters = sentense.toCharArray();
