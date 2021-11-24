@@ -10,40 +10,29 @@ public class Analize {
         int changed = 0;
         int deleted = 0;
 
-        List<User> previousList = previous.stream().collect(Collectors.toList());
-        List<User> currentList = current.stream().collect(Collectors.toList());
+        Map<Integer, String> previousList = previous.stream()
+                .collect(Collectors
+                        .toMap(User::getId, User::getName, (o1, o2) -> o1, LinkedHashMap::new));
+        Map<Integer, String> currentList = current.stream()
+                .collect(Collectors
+                        .toMap(User::getId, User::getName, (o1, o2) -> o1, LinkedHashMap::new));
+
         previousList.remove(currentList);
 
-        Collections.sort(currentList);
-        Collections.sort(previousList);
-        ListIterator<User> userIteratorCur = currentList.listIterator();
-        ListIterator<User> userIteratorPrev = previousList.listIterator();
-
-        while (userIteratorCur.hasNext()) {
-            User userCurEl = userIteratorCur.next();
-            if (userIteratorPrev.hasNext()) {
-                User userPrevEl = userIteratorPrev.next();
-                if (userPrevEl != userCurEl && userPrevEl.getId() == userCurEl.getId()) {
-                    changed++;
-                    userIteratorCur.remove();
-                    userIteratorPrev.remove();
-                }
+        for (Map.Entry<Integer, String> mapCur: currentList.entrySet()) {
+            if (previousList.containsKey(mapCur.getKey()) && !previousList.containsValue(mapCur.getValue())) {
+                changed++;
             }
         }
-        ListIterator<User> userIteratorCurNew = currentList.listIterator();
-        ListIterator<User> userIteratorPrevNew = previousList.listIterator();
-
-        while (userIteratorCurNew.hasNext()) {
-            User userCurEl = userIteratorCurNew.next();
-            if (!previousList.contains(userCurEl)) {
+        for (Map.Entry<Integer, String> mapCur: currentList.entrySet()) {
+            if (!previousList.containsKey(mapCur) && !previousList.containsKey(mapCur.getKey())) {
                 added++;
             }
         }
 
-        while (userIteratorPrevNew.hasNext()) {
-            User userPrevEl = userIteratorPrevNew.next();
-            if (!currentList.contains(userPrevEl)) {
-               deleted++;
+        for (Map.Entry<Integer, String> mapPrev: previousList.entrySet()) {
+            if (!currentList.containsKey(mapPrev) && !currentList.containsKey(mapPrev.getKey())) {
+                deleted++;
             }
         }
         return new Info(added, changed, deleted);
