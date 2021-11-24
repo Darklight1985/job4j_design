@@ -20,7 +20,8 @@ public class Analize {
         previousList.remove(currentList);
 
         for (Map.Entry<Integer, String> mapCur: currentList.entrySet()) {
-            if (previousList.containsKey(mapCur.getKey()) && !previousList.containsValue(mapCur.getValue())) {
+            if (previousList.containsKey(mapCur.getKey())
+                    && !previousList.containsValue(mapCur.getValue())) {
                 changed++;
             }
         }
