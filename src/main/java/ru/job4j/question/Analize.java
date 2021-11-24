@@ -8,34 +8,25 @@ public class Analize {
     public static Info diff(Set<User> previous, Set<User> current) {
         int added = 0;
         int changed = 0;
-        int deleted = 0;
+        int deleted;
 
         Map<Integer, String> previousList = previous.stream()
                 .collect(Collectors
                         .toMap(User::getId, User::getName, (o1, o2) -> o1, LinkedHashMap::new));
-        Map<Integer, String> currentList = current.stream()
-                .collect(Collectors
-                        .toMap(User::getId, User::getName, (o1, o2) -> o1, LinkedHashMap::new));
 
-        previousList.remove(currentList);
+        for (User user : current) {
+                if (!previousList.containsKey(user.getId())) {
+                    added++;
+                }
+                if (previousList.containsKey(user.getId())
+                        && !previousList.containsValue(user.getName())
+                        && !previousList.remove(user.getId(), user.getName())) {
+                    changed++;
+                }
+            }
 
-        for (Map.Entry<Integer, String> mapCur: currentList.entrySet()) {
-            if (previousList.containsKey(mapCur.getKey())
-                    && !previousList.containsValue(mapCur.getValue())) {
-                changed++;
-            }
-        }
-        for (Map.Entry<Integer, String> mapCur: currentList.entrySet()) {
-            if (!previousList.containsKey(mapCur) && !previousList.containsKey(mapCur.getKey())) {
-                added++;
-            }
-        }
+        deleted = Math.abs(Math.abs(previousList.size() - current.size()) - added);
 
-        for (Map.Entry<Integer, String> mapPrev: previousList.entrySet()) {
-            if (!currentList.containsKey(mapPrev) && !currentList.containsKey(mapPrev.getKey())) {
-                deleted++;
-            }
-        }
         return new Info(added, changed, deleted);
     }
 }
