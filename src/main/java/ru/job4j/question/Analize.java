@@ -9,7 +9,6 @@ public class Analize {
         int added = 0;
         int changed = 0;
         int deleted;
-        int notchanged = 0;
 
         Map<Integer, String> previousList = previous.stream()
                 .collect(Collectors
@@ -19,17 +18,14 @@ public class Analize {
             if (!previousList.containsKey(user.getId())) {
                 added++;
             } else {
-                if (previousList.containsKey(user.getId())
-                        && !previousList.containsValue(user.getName())
+                if (!previousList.containsValue(user.getName())
                         && !previousList.remove(user.getId(), user.getName())) {
                     changed++;
-                } else {
-                    notchanged++;
                 }
             }
         }
 
-        deleted = previousList.size() - notchanged - changed;
+        deleted = previousList.size() - current.size() + added;
 
         return new Info(added, changed, deleted);
     }
