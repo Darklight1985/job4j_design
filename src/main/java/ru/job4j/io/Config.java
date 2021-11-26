@@ -18,17 +18,15 @@ public class Config {
 
     public void load() {
        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
-            in.lines().filter(s -> !s.startsWith("#")).forEach(line -> {
-                if (line.split("=").length < 2) {
+            in.lines().filter(s -> !s.startsWith("#") && !s.equals("") && s.contains("="))
+                    .forEach(line -> {
+                if (line.split("=").length < 2 || line.split("=")[0].equals("")
+                        || line.split("=")[1].equals("")) {
                     throw new IllegalArgumentException();
                 }
                     values.put(line.split("=")[0], line.split("=")[1]);
             });
-            for (Map.Entry<String, String> map: values.entrySet()) {
-                if (map.getKey().equals("") || map.getValue().equals("")) {
-                    throw new IllegalArgumentException();
-                }
-            }
+
        } catch (IOException e) {
            e.printStackTrace();
        }
