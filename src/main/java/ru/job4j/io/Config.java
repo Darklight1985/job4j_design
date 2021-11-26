@@ -18,10 +18,12 @@ public class Config {
 
     public void load() {
        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
-            in.lines().filter(s -> !s.startsWith("#"))
-                    .forEach(s -> values
-                            .put(s.split("=")[0], s
-                                    .split("=")[1]));
+            in.lines().filter(s -> !s.startsWith("#")).forEach(line -> {
+                if (line.split("=").length < 2) {
+                    throw new IllegalArgumentException();
+                }
+                    values.put(line.split("=")[0], line.split("=")[1]);
+            });
             for (Map.Entry<String, String> map: values.entrySet()) {
                 if (map.getKey().equals("") || map.getValue().equals("")) {
                     throw new IllegalArgumentException();
