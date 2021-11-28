@@ -20,8 +20,8 @@ public class Config {
        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             in.lines().filter(s -> !s.startsWith("#") && !s.equals("") && s.contains("="))
                     .forEach(line -> {
-                if (line.split("=").length < 2 || line.split("=")[0].equals("")
-                        || line.split("=")[1].equals("")) {
+                        String[] data = line.split("=");
+                        if (data[0].isEmpty() || data[1].isEmpty()) {
                     throw new IllegalArgumentException();
                 }
                     values.put(line.split("=")[0], line.split("=")[1]);
