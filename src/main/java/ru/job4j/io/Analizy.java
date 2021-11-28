@@ -13,12 +13,12 @@ public class Analizy {
                if (crash.equals("") && (str.contains("400") || str.contains("500"))) {
                    crash = str.split(" ")[1];
                } else {
-                   if ((str.contains("200") || str.contains("300"))) {
+                   if (!crash.equals("") && (str.contains("200") || str.contains("300"))) {
                      work = str.split(" ")[1];
                    }
                }
                if (!crash.equals("") && !work.equals("")) {
-                   out.printf("%s%n", crash + ";" + work);
+                   out.printf("%s%n", crash + ";" + work + ";");
                    crash = "";
                    work = "";
                }
