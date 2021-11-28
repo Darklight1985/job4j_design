@@ -20,7 +20,7 @@ public class Analizy {
                      working = true;
                    }
                }
-               if ((working) && (!crash.equals("") && !work.equals(""))) {
+               if (!crash.equals("") && !work.equals("")) {
                    out.printf("%s%n", crash + ";" + work);
                    crash = "";
                    work = "";
