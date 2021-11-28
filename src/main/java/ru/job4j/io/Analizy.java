@@ -6,18 +6,15 @@ public class Analizy {
     public void unavailable(String source, String target) {
        try (BufferedReader in = new BufferedReader(new FileReader(source));
            PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-           boolean working = true;
            String crash = "";
            String work = "";
            while (in.ready()) {
                String str = in.readLine();
                if (crash.equals("") && (str.contains("400") || str.contains("500"))) {
                    crash = str.split(" ")[1];
-                   working = false;
                } else {
-                   if ((!working) && (str.contains("200") || str.contains("300"))) {
+                   if ((str.contains("200") || str.contains("300"))) {
                      work = str.split(" ")[1];
-                     working = true;
                    }
                }
                if (!crash.equals("") && !work.equals("")) {
