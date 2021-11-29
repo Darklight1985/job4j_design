@@ -22,7 +22,7 @@ public class Config {
                     .forEach(line -> {
                         String[] data = line.split("=");
                         if (data[0].isEmpty() || data[1].isEmpty()) {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The data is set incorrectly");
                 }
                     values.put(line.split("=")[0], line.split("=")[1]);
             });
