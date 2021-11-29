@@ -18,7 +18,7 @@ public class Config {
 
     public void load() {
        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
-            in.lines().filter(s -> !s.startsWith("#") && !s.equals("") && s.contains("="))
+            in.lines().filter(s -> !s.startsWith("#") && !"".equals(s) && s.contains("="))
                     .forEach(line -> {
                         String[] data = line.split("=");
                         if (data[0].isEmpty() || data[1].isEmpty()) {
