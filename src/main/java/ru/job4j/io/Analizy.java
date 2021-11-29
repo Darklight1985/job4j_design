@@ -10,14 +10,14 @@ public class Analizy {
            String work = "";
            while (in.ready()) {
                String str = in.readLine();
-               if (crash.equals("") && (str.contains("400") || str.contains("500"))) {
+               if ("".equals(crash) && (str.contains("400") || str.contains("500"))) {
                    crash = str.split(" ")[1];
                } else {
-                   if (!crash.equals("") && (str.contains("200") || str.contains("300"))) {
+                   if (!"".equals(crash) && (str.contains("200") || str.contains("300"))) {
                      work = str.split(" ")[1];
                    }
                }
-               if (!crash.equals("") && !work.equals("")) {
+               if (!"".equals(crash) && !"".equals(work)) {
                    out.printf("%s%n", crash + ";" + work + ";");
                    crash = "";
                    work = "";
