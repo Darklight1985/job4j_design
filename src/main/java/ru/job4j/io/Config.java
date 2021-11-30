@@ -18,13 +18,13 @@ public class Config {
 
     public void load() {
        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
-            in.lines().filter(s -> !s.startsWith("#") && !"".equals(s) && s.contains("="))
+            in.lines().filter(s -> !s.startsWith("#") && !"".equals(s))
                     .forEach(line -> {
                         String[] data = line.split("=");
                         if (data[0].isEmpty() || data[1].isEmpty()) {
                     throw new IllegalArgumentException("The data is set incorrectly");
                 }
-                    values.put(line.split("=")[0], line.split("=")[1]);
+                    values.put(data[0], data[1]);
             });
 
        } catch (IOException e) {
@@ -33,11 +33,7 @@ public class Config {
     }
 
     public String value(String key) {
-        String rsl = null;
-        if (values.containsKey(key)) {
-            rsl = values.get(key);
-        }
-        return rsl;
+        return values.get(key);
     }
 
     @Override
