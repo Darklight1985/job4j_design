@@ -13,10 +13,11 @@ public class ArgsName {
 
     private void parse(String[] args) {
          for (String str: args) {
-             if (str.split("=").length < 2) {
+             String[] data = str.split("=");
+             if (data.length < 2 || !data[0].contains("-")) {
                  throw new IllegalArgumentException();
              }
-             values.put(str.split("=")[0].replace("-", ""), str.split("=")[1]);
+             values.put(data[0].replace("-", ""), data[1]);
          }
     }
 
