@@ -7,6 +7,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
@@ -18,6 +19,13 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         FileProperty fileProperty =
                 new FileProperty(file.toFile().length(), file.toFile().getName());
                 if (!list.add(fileProperty)) {
+                    Iterator<FileProperty> iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        FileProperty original = iterator.next();
+                        if (original.equals(fileProperty)) {
+                            duplicates.add(original);
+                        }
+                    }
                     duplicates.add(fileProperty);
                 }
         return super.visitFile(file, attrs);
