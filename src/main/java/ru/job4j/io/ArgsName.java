@@ -17,7 +17,7 @@ public class ArgsName {
              if (data.length < 2 || !data[0].startsWith("-")) {
                  throw new IllegalArgumentException();
              }
-             values.put(data[0].replace("-", ""), data[1]);
+             values.put(data[0].substring(1, data[0].length()), data[1]);
          }
     }
 
