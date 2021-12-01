@@ -14,7 +14,7 @@ public class ArgsName {
     private void parse(String[] args) {
          for (String str: args) {
              String[] data = str.split("=");
-             if (data.length < 2 || !data[0].contains("-")) {
+             if (data.length < 2 || !data[0].startsWith("-")) {
                  throw new IllegalArgumentException();
              }
              values.put(data[0].replace("-", ""), data[1]);
