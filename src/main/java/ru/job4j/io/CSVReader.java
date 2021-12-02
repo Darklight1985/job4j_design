@@ -20,7 +20,7 @@ public class CSVReader {
             }
         }
        List<String> list = Arrays
-               .stream(data.get(0).split(argsName.get("delimiter")))
+               .stream(data.get(0).trim().split(argsName.get("delimiter")))
                .collect(Collectors.toList());
         String[] needParameters = argsName.get("filter").split(",");
 
@@ -35,9 +35,12 @@ public class CSVReader {
 
         for (int j = 1; j < data.size(); j++) {
             stringBuilder.delete(0, stringBuilder.length());
-            String[] value = data.get(j).split(argsName.get("delimiter"));
-        for (int i = 0; i < needParameters.length; i++) {
-            int index = list.indexOf(needParameters[i]);
+            String[] value = data.get(j).trim().split(argsName.get("delimiter"));
+        for (String str: needParameters) {
+            int index = list.indexOf(str);
+            if (index == -1) {
+                continue;
+            }
             stringBuilder.append(value[index] + ";");
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
