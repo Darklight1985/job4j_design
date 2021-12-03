@@ -17,10 +17,10 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
                 new FileProperty(file.toFile().length(), file.toFile().getName());
                 if (list.containsKey(fileProperty)) {
                     List<Path> pathList = list.get(fileProperty);
-                    pathList.add(file.getParent());
+                    pathList.add(file.toAbsolutePath());
                 } else {
                     List<Path> pathList = new ArrayList<>();
-                    pathList.add(file.getParent());
+                    pathList.add(file.toAbsolutePath());
                     list.put(fileProperty, pathList);
                 }
         return super.visitFile(file, attrs);
