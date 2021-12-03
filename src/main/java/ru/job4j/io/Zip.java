@@ -15,15 +15,17 @@ public class Zip {
                          new ZipOutputStream(
                                  new BufferedOutputStream(new FileOutputStream(target)))) {
                     for (File file : sources) {
-                 BufferedInputStream out = new BufferedInputStream(new FileInputStream(file));
-                    zip.putNextEntry(new ZipEntry(file.getPath()));
-                    byte[] bytes = new byte[1024];
-                    int count = out.read(bytes);
-                    while (count > 1) {
-                        zip.write(bytes, 0, count);
-                        count = out.read(bytes);
+                        zip.putNextEntry(new ZipEntry(file.getPath()));
+                        try (BufferedInputStream out =
+                                     new BufferedInputStream(new FileInputStream(file))) {
+                            byte[] bytes = new byte[1024];
+                            int count = out.read(bytes);
+                            while (count > 1) {
+                                zip.write(bytes, 0, count);
+                                count = out.read(bytes);
+                            }
+                        }
                     }
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -54,7 +56,7 @@ public class Zip {
         List<File> fileList = new ArrayList<>();
         try {
           list = Search.search(Paths.get(jvm.get("d")),
-                    p -> p.toFile().getName().endsWith(jvm.get("e")));
+                    p -> !p.toFile().getName().endsWith(jvm.get("e")));
         } catch (IOException e) {
             e.printStackTrace();
         }
