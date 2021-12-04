@@ -25,7 +25,7 @@ public class CSVReader {
         StringBuilder stringBuilder = new StringBuilder();
         PrintStream console = System.out;
 
-        if (!argsName.get("out").equals("stdout")) {
+        if (!"stdout".equals(argsName.get("out"))) {
             PrintStream stream = new PrintStream((new FileOutputStream(argsName.get("out"))));
             System.setOut(stream);
         }
