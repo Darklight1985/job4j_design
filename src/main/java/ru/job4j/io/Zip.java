@@ -10,24 +10,21 @@ import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
-    public static void packFiles(List<File> sources, File target) {
+    public static void packFiles(List<Path> sources, File target) {
             try (ZipOutputStream zip =
                          new ZipOutputStream(
-                                 new BufferedOutputStream(new FileOutputStream(target)))) {
-                    for (File file : sources) {
-                        zip.putNextEntry(new ZipEntry(file.getPath()));
+                                 new BufferedOutputStream(
+                                         new FileOutputStream(target)))) {
+                    for (Path path : sources) {
+                        zip.putNextEntry(new ZipEntry(String.valueOf(path.toAbsolutePath())));
                         try (BufferedInputStream out =
-                                     new BufferedInputStream(new FileInputStream(file))) {
-                            byte[] bytes = new byte[1024];
-                            int count = out.read(bytes);
-                            while (count > 1) {
-                                zip.write(bytes, 0, count);
-                                count = out.read(bytes);
+                                     new BufferedInputStream(
+                                             new FileInputStream(String.valueOf(path)))) {
+                            zip.write(out.readAllBytes());
                             }
                         }
-                    }
-            } catch (Exception e) {
-                e.printStackTrace();
+                    } catch (IOException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
             }
     }
 
@@ -53,7 +50,7 @@ public class Zip {
             throw new IllegalArgumentException("Something went wrong, check your arguments!");
         }
        List<Path> list = new ArrayList<>();
-        List<File> fileList = new ArrayList<>();
+        List<Path> fileList = new ArrayList<>();
         try {
           list = Search.search(Paths.get(jvm.get("d")),
                     p -> !p.toFile().getName().endsWith(jvm.get("e")));
@@ -62,13 +59,13 @@ public class Zip {
         }
         for (Path path: list) {
             if (path.toFile().isFile()) {
-                fileList.add(path.toFile());
+                fileList.add(path);
             }
         }
         if (fileList.size() > 1) {
             packFiles(fileList, new File(jvm.get("o")));
         } else {
-            packSingleFile(fileList.get(0), new File(jvm.get("o")));
+            packSingleFile(fileList.get(0).toFile(), new File(jvm.get("o")));
         }
     }
 }
