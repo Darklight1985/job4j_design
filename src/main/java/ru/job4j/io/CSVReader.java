@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,14 +22,18 @@ public class CSVReader {
                .collect(Collectors.toList());
         String[] needParameters = argsName.get("filter").split(",");
 
-        File target = new File(argsName.get("out"));
         StringBuilder stringBuilder = new StringBuilder();
-        try (PrintWriter out = new PrintWriter(target)) {
+        PrintStream console = System.out;
+
+        if (!argsName.get("out").equals("stdout")) {
+            PrintStream stream = new PrintStream((new FileOutputStream(argsName.get("out"))));
+            System.setOut(stream);
+        }
             for (String str: needParameters) {
                 stringBuilder.append(str + ";");
             }
            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            out.println(stringBuilder);
+            System.out.println(stringBuilder);
 
         for (int j = 1; j < data.size(); j++) {
             stringBuilder.delete(0, stringBuilder.length());
@@ -44,8 +46,8 @@ public class CSVReader {
             stringBuilder.append(value[index] + ";");
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            out.println(stringBuilder);
+            System.out.println(stringBuilder);
         }
+        System.setOut(console);
         }
-    }
 }
