@@ -40,7 +40,7 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) {
+    public static ArgsName validate(String[] args) {
         if (args.length < 3) {
             throw new IllegalArgumentException("Not enough arguments entered");
         }
@@ -49,6 +49,11 @@ public class Zip {
                 || null == (jvm.get("e")) || null == (jvm.get("o"))) {
             throw new IllegalArgumentException("Something went wrong, check your arguments!");
         }
+        return jvm;
+    }
+
+    public static void main(String[] args) {
+            ArgsName jvm = validate(args);
        List<Path> list = new ArrayList<>();
         List<Path> fileList = new ArrayList<>();
         try {
