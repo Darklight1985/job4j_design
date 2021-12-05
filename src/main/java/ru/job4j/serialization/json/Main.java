@@ -15,7 +15,7 @@ public class Main {
                +  "\"age\": 40,"
                + "\"name\": \"Vasya\","
                + "\"drinks\":true,"
-               + "\"contact\":"
+               + "\"car\":"
                + "{"
                + "\"color\": \"red\","
                + "\"power\": 300"
