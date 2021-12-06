@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<user age="45" name="Vasya" drinks="true">
+    <car color="red" power="300"/>
+    <hobbys>
+        <hobby>dominoes</hobby>
+        <hobby>women</hobby>
+        <hobby>fight</hobby>
+    </hobbys>
+</user>
