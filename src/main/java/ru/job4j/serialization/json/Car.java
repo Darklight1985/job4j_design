@@ -9,6 +9,14 @@ public class Car {
         this.power = power;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
     @Override
     public String toString() {
         return "Car{"
