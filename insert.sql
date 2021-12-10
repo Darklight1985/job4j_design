@@ -10,7 +10,7 @@ insert into category(name) values ('premier');
 
 insert into state(accepted) values (true);
 
-insert into item(users_id, category_id) values (1, 1);
+insert into item(users_id, category_id, state_id) values (1, 1, 1);
 
 insert into comments(description, item_id) values ('very important', 1);
 

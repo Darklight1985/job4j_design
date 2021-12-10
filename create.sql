@@ -16,8 +16,8 @@ create table rules (
 
 create table role_rules (
     id serial primary key, 
-    role_id int,
-	rules_id int
+    role_id int references role(id),
+	rules_id int references rules(id)
 );
 
 create table category (
@@ -33,7 +33,8 @@ create table state (
 create table item (
     id serial primary key, 
     users_id int references users(id),
-	category_id int references category(id)
+	category_id int references category(id),
+state_id int references state(id)
 );
 
 create table comments (
