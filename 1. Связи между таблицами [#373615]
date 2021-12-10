@@ -1,0 +1,60 @@
+create table appartments(
+id serial primary key,
+	adress varchar(255),
+	area int
+);
+
+create table residents(
+id serial primary key,
+	name varchar(255),
+	surname varchar(255),
+	appartments_id int references appartments(id)
+);
+
+insert into appartments(adress, area) values ('S-Petesburg, str. Lenina, 40' , 40);
+insert into residents(name, surname, appartments_id) values ('Ivan', 'Ivanov', 1);
+
+select * from appartments;
+select * from residents;
+
+create table childrens(
+id serial primary key,
+	name varchar(255),
+	surname varchar(255)
+);
+
+create table sections(
+id serial primary key,
+	name varchar(255)
+);
+
+ create table childrens_sections(
+     id serial primary key,
+     childrens_id int references childrens(id),
+     sections_id int references sections(id)
+ );
+
+insert into childrens(name, surname) values ('Vasya' , 'Pupkin');
+insert into childrens(name, surname) values ('Masha' , 'Romashkina');
+insert into sections(name) values ('modeling');
+insert into sections(name) values ('drawing');
+
+insert into childrens_sections(childrens_id, sections_id) values (1, 1);
+insert into childrens_sections(childrens_id, sections_id) values (1, 2);
+insert into childrens_sections(childrens_id, sections_id) values (2, 1);
+
+create table wife(
+    id serial primary key,
+    name varchar(255),
+    surname varchar(255)
+);
+
+create table husband(
+    id serial primary key,
+    name varchar(255),
+	surname varchar(255),
+    wife_id int references wife(id) unique
+);
+
+insert into wife(name, surname) values ('Rosa' , 'Dushnaya');
+insert into husband(name, surname, wife_id) values ('Kolya' , 'Durikov',1);
