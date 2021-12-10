@@ -28,33 +28,22 @@ public class ExamenIO {
     public static void main(String[] args) {
         ArgsName jvm = validate(args);
         List<Path> list = new ArrayList<>();
-        List<Path> fileList = new ArrayList<>();
         File target = new File(jvm.get("o"));
-
-        try {
-         target.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         try {
             list = Search.search(Paths.get(jvm.get("d")), uslovie(jvm.get("t"), jvm.get("n")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Path path : list) {
-            if (path.toFile().isFile()) {
-                fileList.add(path);
-            }
-        }
+
         try (BufferedWriter buff = new BufferedWriter(new FileWriter(target))) {
-            for (Path path: fileList) {
-                buff.write(path.toString() + "\n");
+            for (Path path:  list) {
+                buff.write(path.toString() + System.lineSeparator());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        fileList.forEach(System.out::println);
+       list.forEach(System.out::println);
     }
 
 public static Predicate<Path> uslovie(String krit, String poisk) {
