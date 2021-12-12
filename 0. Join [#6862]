@@ -15,14 +15,19 @@ insert into emploers(name, dep_id) values ('Аня',1), ('Ваня' ,2), ('Бо�
 insert into departments (name) values ('pr');
 insert into emploers(name) values ('Вася');
 
-select * from departments 
-d left join emploers e on d.id = e.dep_id;
+select * from departments d 
+left join emploers e on d.id = e.dep_id;
 
-select * from departments 
-d right join emploers e on d.id = e.dep_id;
+select * from departments d
+ left join emploers e on d.id = e.dep_id
+where e.id is null
+;
 
-select * from departments 
-d full join emploers e on d.id = e.dep_id;
+select * from departments d 
+right join emploers e on d.id = e.dep_id;
+
+select * from departments d
+ full join emploers e on d.id = e.dep_id;
 
 select * from 
 departments d cross join emploers e;
