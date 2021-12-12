@@ -1,0 +1,42 @@
+create table job(
+    id serial primary key,
+    name varchar(255),
+    salary int
+);
+
+create table worker(
+    id serial primary key,
+    name varchar(255),
+	expirience int,
+    job_id int references job(id)
+);
+
+insert into job(name, salary) values ('bricklayer', 20000);
+insert into job(name, salary) values ('carpenter', 23000);
+insert into job(name, salary) values ('blacksmith', 22000);
+insert into job(name, salary) values ('turner', 30000);
+
+insert into  worker(name, expirience, job_id) values ('Ivan',10, 1);
+insert into  worker(name, expirience, job_id) values ('Boris',5, 2);
+insert into  worker(name, expirience, job_id) values ('Petr',7, 3);
+insert into  worker(name, expirience, job_id) values ('Petr',12, 4);
+insert into  worker(name, job_id) values ('Kusya', 4);
+
+select * from worker
+join job j
+on worker.job_id = j.id;
+
+select w.name, w.expirience, j.salary
+from worker as w
+join job as j
+on w.job_id = j.id;
+
+select w.name as Имя, w.expirience as Опыт, j.salary as Зарплата
+from worker as w
+join job as j
+on w.job_id = j.id;
+
+select w.name as Имя, w.expirience as Опыт, j.name as Профессия, j.salary as Зарплата
+from worker as w
+join job as j
+on w.job_id = j.id;
