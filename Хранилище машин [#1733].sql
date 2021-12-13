@@ -37,12 +37,12 @@ on c.gearbox_id = g.id;
 
 select * from cars c 
 right join body b on c.body_id=b.id
-where c.id is null
-union
+where c.id is null;
+
 select * from cars c
 right join engine e on c.engine_id=e.id
-where c.id is null
-union
+where c.id is null;
+
 select * from cars c
 right join gearbox g on c.gearbox_id=g.id
 where c.id is null
