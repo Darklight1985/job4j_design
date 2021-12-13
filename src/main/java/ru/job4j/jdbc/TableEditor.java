@@ -39,74 +39,73 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void createTable(String tableName) {
-            try (Statement statement = connection.createStatement()) {
-                String sql = String.format(
-                        "create table if not exists " + tableName + " (%s);",
-                        "id serial primary key"
-                );
-                statement.execute(sql);
-                System.out.println(getTableScheme(connection, tableName));
-            } catch (Exception throwables) {
-                throwables.printStackTrace();
-            }
+            String sql = String.format(
+                    "create table if not exists " + tableName + " (%s);",
+                    "id serial primary key"
+            );
+            stateExec(sql);
+        try {
+            System.out.println(getTableScheme(connection, tableName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void dropTable(String tableName) {
-        try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "drop table %s;",
                     tableName
             );
-            statement.execute(sql);
-            System.out.println("Таблица " + tableName + " удалена");
-            close();
-        } catch (Exception throwables) {
-            throwables.printStackTrace();
-        }
+            stateExec(sql);
+            try {
+                System.out.println("Таблица " + tableName + " удалена");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     public void addColumn(String tableName, String columnName, String type) {
-        try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "alter table %s add %s  %s;",
                     tableName,
                     columnName,
                     type
             );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        } catch (Exception throwables) {
-            throwables.printStackTrace();
-        }
+            stateExec(sql);
+            try {
+                System.out.println(getTableScheme(connection, tableName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     public void dropColumn(String tableName, String columnName) {
-        try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "alter table %s drop column %s;",
                     tableName,
                     columnName
             );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        } catch (Exception throwables) {
-            throwables.printStackTrace();
-        }
+            stateExec(sql);
+            try {
+                System.out.println(getTableScheme(connection, tableName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
-        try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "alter table %s rename column %s to %s;",
                     tableName,
                     columnName,
                     newColumnName
             );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        } catch (Exception throwables) {
-            throwables.printStackTrace();
-        }
+            stateExec(sql);
+            try {
+                System.out.println(getTableScheme(connection, tableName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
@@ -132,6 +131,14 @@ public class TableEditor implements AutoCloseable {
     public void close() throws Exception {
         if (connection != null) {
             connection.close();
+        }
+    }
+
+    public void stateExec(String str) {
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(str);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
