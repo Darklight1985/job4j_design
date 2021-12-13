@@ -22,7 +22,13 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-             rd.lines().forEach(s -> users.add(new User(s.split(";")[0], s.split(";")[1])));
+             rd.lines().forEach(s -> {
+                 String[] data = s.split(";");
+                 if (data[0].isEmpty() || data[1].isEmpty()) {
+                     throw new IllegalArgumentException("The data is set incorrectly");
+                 }
+                 users.add(new User(data[0], data[1]));
+                 });
         }
         return users;
     }
