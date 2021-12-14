@@ -23,7 +23,7 @@ public class ImportDB {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
              rd.lines().forEach(s -> {
-                 String[] data = s.split(";");
+                 String[] data = s.split(";", 2);
                  if (data[0].isEmpty() || data[1].isEmpty()) {
                      throw new IllegalArgumentException("The data is set incorrectly");
                  }
