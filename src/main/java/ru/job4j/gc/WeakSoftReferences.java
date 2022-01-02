@@ -20,6 +20,8 @@ public class WeakSoftReferences {
 
         userVasya.setAge(3);
         weakUser.get().setAge(5);
-        System.out.println(weakUser.get().getAge());
+        if (userVasya != null) {
+            System.out.println(weakUser.get().getAge());
+        }
     }
 }
