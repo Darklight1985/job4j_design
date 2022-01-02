@@ -9,6 +9,22 @@ public class User {
         this.age = age;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     @Override
     protected void finalize() throws Throwable {
         System.out.printf("Removed %d %s%n", age, name);
@@ -16,7 +32,7 @@ public class User {
 
     public static void main(String[] args) {
         GCDemo.info();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 200; i++) {
             System.out.println(new User(i, "N" + i));
         }
         GCDemo.info();
