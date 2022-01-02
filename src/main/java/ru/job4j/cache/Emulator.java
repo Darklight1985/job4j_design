@@ -2,8 +2,6 @@ package ru.job4j.cache;
 
 import java.util.Scanner;
 
-import static java.util.Objects.isNull;
-
 public class Emulator {
     public static void main(String[] args) {
         boolean run = true;
@@ -28,12 +26,6 @@ public class Emulator {
                 case 2:
                     fileName = getNameFile(scanner);
                     String soderjimoe = dirFileCache.get(fileName);
-                   if (isNull(soderjimoe)) {
-                       uploaded = dirFileCache.load(fileName);
-                       dirFileCache.put(fileName, uploaded);
-                       soderjimoe = dirFileCache.get(fileName);
-                       uploaded = null;
-                   }
                     System.out.println(soderjimoe);
                    break;
                 default: run = false;
