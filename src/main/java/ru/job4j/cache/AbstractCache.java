@@ -4,6 +4,7 @@ import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public abstract class AbstractCache<K, V> {
@@ -19,7 +20,12 @@ public abstract class AbstractCache<K, V> {
     }
 
     public V get(K key) {
-        return cache.getOrDefault(key, new SoftReference<>(null)).get();
+        V rsl = cache.getOrDefault(key, new SoftReference<>(null)).get();
+        if (isNull(rsl)) {
+            rsl = load(key);
+            cache.put(key, new SoftReference<>(load(key)));
+        }
+        return rsl;
     }
 
     protected abstract V load(K key);
