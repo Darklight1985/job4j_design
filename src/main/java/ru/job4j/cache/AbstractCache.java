@@ -13,6 +13,8 @@ public abstract class AbstractCache<K, V> {
     public void put(K key, V value) {
         if (nonNull(value) && !" ".equals(value)) {
             cache.put(key, new SoftReference<>(value));
+        } else {
+            throw new IllegalArgumentException("There is no data in the file");
         }
     }
 
