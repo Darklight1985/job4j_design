@@ -15,7 +15,7 @@ public class Emulator {
             System.out.println("Выберите необходмое действие");
             System.out.println("1. Загрузить сожержимое файла");
             System.out.println("2. Получить содержимое файла из кэша");
-            int userAction = scanner.nextInt();
+            int userAction = Integer.parseInt(scanner.nextLine());
             switch (userAction) {
                 case 1:
                     fileName = getNameFile(scanner);
@@ -34,7 +34,7 @@ public class Emulator {
     }
 
     public static String getNameFile(Scanner scanner) {
-        System.out.println("Укажите имя файл");
+        System.out.println("Укажите имя файла");
         return scanner.nextLine();
     }
 }
