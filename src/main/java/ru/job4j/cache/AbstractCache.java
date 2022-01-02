@@ -23,7 +23,7 @@ public abstract class AbstractCache<K, V> {
         V rsl = cache.getOrDefault(key, new SoftReference<>(null)).get();
         if (isNull(rsl)) {
             rsl = load(key);
-            cache.put(key, new SoftReference<>(load(key)));
+            put(key, rsl);
         }
         return rsl;
     }
