@@ -34,6 +34,7 @@ public class CinemaTest {
     public void add() {
         Session session = new Session3D();
         List<Session> sessions = new ArrayList<>();
+        sessions.add(session);
         assertThat(session, is(sessions.get(0)));
     }
 }
