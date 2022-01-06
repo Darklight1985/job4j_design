@@ -24,7 +24,7 @@ public class GeneratorTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void nonCorrectTempl() {
+    public void whenNonCorrectTempl() {
         Generator generator = new GeneratorStr();
         Map<String, String> mapStr = new HashMap<>();
         mapStr.put("name", "Vasya");
@@ -35,7 +35,7 @@ public class GeneratorTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void nonCorrectArg() {
+    public void whenNonCorrectArg() {
         Generator generator = new GeneratorStr();
         Map<String, String> mapStr = new HashMap<>();
         mapStr.put("name", "Vasya");
@@ -46,7 +46,7 @@ public class GeneratorTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void extraArg() {
+    public void whenExtraArg() {
         Generator generator = new GeneratorStr();
         Map<String, String> mapStr = new HashMap<>();
         mapStr.put("name", "Vasya");
@@ -58,7 +58,7 @@ public class GeneratorTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void nullArg() {
+    public void whenNullArg() {
         Generator generator = new GeneratorStr();
         Map<String, String> mapStr = new HashMap<>();
         mapStr.put("name", "Vasya");
