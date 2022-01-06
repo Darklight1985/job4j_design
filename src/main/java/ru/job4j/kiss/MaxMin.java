@@ -5,6 +5,17 @@ import java.util.List;
 
 public class MaxMin {
     public <T> T findBy(List<T> value, Comparator<T> comparator) {
+        T rsl;
+        Comparator<Integer> integerComparator = (Comparator<Integer>) comparator;
+        if (integerComparator.compare(2, 1) > 0) {
+          rsl = max(value, comparator);
+} else {
+            rsl = min(value, comparator);
+        }
+        return rsl;
+    }
+
+    public <T> T max(List<T> value, Comparator<T> comparator) {
         boolean needIter = true;
         while (needIter) {
             needIter = false;
@@ -15,7 +26,21 @@ public class MaxMin {
                 }
             }
         }
-       return value.get(0);
+        return value.get(0);
+    }
+
+    public <T> T min(List<T> value, Comparator<T> comparator) {
+        boolean needIter = true;
+        while (needIter) {
+            needIter = false;
+            for (int i = 1; i < value.size(); i++) {
+                if (comparator.compare(value.get(i), value.get(i - 1)) > 0) {
+                    swap(value, i, i - 1);
+                    needIter = true;
+                }
+            }
+        }
+        return value.get(0);
     }
 
     private <T> void swap(List<T> value, int elem1, int elem2) {
