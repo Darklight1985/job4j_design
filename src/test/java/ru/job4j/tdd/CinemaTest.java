@@ -72,4 +72,5 @@ public class CinemaTest {
         sessions.add(session);
         assertThat(session, is(sessions.get(0)));
     }
+
 }
