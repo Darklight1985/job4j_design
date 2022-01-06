@@ -20,7 +20,7 @@ public class MaxMinTest {
         list.add(2);
         list.add(7);
         Comparator<Integer> check = Comparator.naturalOrder();
-        assertThat(maxMin.findBy(list, check), is(10));
+        assertThat(maxMin.max(list, check), is(10));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class MaxMinTest {
         list.add(1);
         list.add(2);
         list.add(7);
-        Comparator<Integer> check = Comparator.reverseOrder();
-        assertThat(maxMin.findBy(list, check), is(1));
+        Comparator<Integer> check = Comparator.naturalOrder();
+        assertThat(maxMin.min(list, check), is(1));
     }
 }
