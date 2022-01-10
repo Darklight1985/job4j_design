@@ -19,7 +19,6 @@ public class ReportEngineTest {
         Employee workerTwo = new Employee("Vasya", now, now, 151.2);
         store.add(workerOne);
         store.add(workerTwo);
-        SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
         Report engine = new ReportEngine(store);
         StringBuilder expect = new StringBuilder()
         .append("<!doctype html>\n")
@@ -32,10 +31,10 @@ public class ReportEngineTest {
         .append("<h1>List of Reports</h1>\n")
                 .append("<ul>\n")
             .append("<li>Name; Salary;</li>\n")
-                .append("<li>" + workerTwo.getName()
-                        + ";" + changeSalary.changer(workerTwo.getSalary()) + ";</li>\n")
-                .append("<li>" + workerOne.getName() + ";"
-                        + changeSalary.changer(workerOne.getSalary()) + ";</li>\n")
+                .append("<li>" + workerOne.getName()
+                        + ";" + workerOne.getSalary() + ";</li>\n")
+                .append("<li>" + workerTwo.getName() + ";"
+                        + workerTwo.getSalary() + ";</li>\n")
         .append("</ul>\n")
         .append("</body>\n\n")
                 .append("</html>");
