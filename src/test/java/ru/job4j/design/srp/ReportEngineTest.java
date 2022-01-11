@@ -30,7 +30,7 @@ public class ReportEngineTest {
         .append("<body>\n")
         .append("<h1>List of Reports</h1>\n")
                 .append("<ul>\n")
-            .append("<li>Name; Salary;</li>\n")
+            .append("<li>Name</li>\n")
                 .append("<li>" + workerOne.getName()
                         + ";" + workerOne.getSalary() + ";</li>\n")
                 .append("<li>" + workerTwo.getName() + ";"
