@@ -14,7 +14,7 @@ public class ReportAcc implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name");
+        text.append("Name; Hired; Fired; Salary");
         List<Employee> list = store.findBy(filter);
         SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
         for (Employee employee : list) {

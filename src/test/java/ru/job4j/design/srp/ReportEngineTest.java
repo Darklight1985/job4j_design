@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 public class ReportEngineTest {
 
     @Test
-    public void whenGenerated() {
+    public void whenGeneratedIT() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee workerOne = new Employee("Ivan", now, now, 75.6);
@@ -30,14 +30,53 @@ public class ReportEngineTest {
         .append("<body>\n")
         .append("<h1>List of Reports</h1>\n")
                 .append("<ul>\n")
-            .append("<li>Name</li>\n")
+        .append("<li>Name; Hired; Fired; Salary</li>\n")
                 .append("<li>" + workerOne.getName()
-                        + ";" + workerOne.getSalary() + ";</li>\n")
-                .append("<li>" + workerTwo.getName() + ";"
-                        + workerTwo.getSalary() + ";</li>\n")
+                        + ";" + workerOne.getHired()
+                        + ";" + workerOne.getFired()
+                        + ";" + workerOne.getSalary()
+                        + ";</li>\n")
+                .append("<li>" + workerTwo.getName()
+                        + ";" + workerOne.getHired()
+                        + ";" + workerOne.getFired()
+                        + ";" + workerTwo.getSalary()
+                        + ";</li>\n")
         .append("</ul>\n")
         .append("</body>\n\n")
                 .append("</html>");
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenOldGeneratedAcc() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee workerOne = new Employee("Ivan", now, now, 75.6);
+        store.add(workerOne);
+        Report engine = new ReportAcc(store);
+        SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
+        StringBuilder expect = new StringBuilder()
+                .append("Name; Hired; Fired; Salary")
+                .append(System.lineSeparator())
+                .append(workerOne.getName()).append(";")
+                .append(workerOne.getHired()).append(";")
+                .append(workerOne.getFired()).append(";")
+                .append(changeSalary.changer(workerOne.getSalary())).append(";");
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenOldGeneratedHr() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee workerOne = new Employee("Ivan", now, now, 75.6);
+        store.add(workerOne);
+        Report engine = new ReportHR(store);
+        StringBuilder expect = new StringBuilder()
+                .append("Name; Salary")
+                .append(System.lineSeparator())
+                .append(workerOne.getName()).append(";")
+                .append(workerOne.getSalary()).append(";");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 

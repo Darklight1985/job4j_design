@@ -26,12 +26,14 @@ public class ReportEngine implements Report {
         text.append("<h1>List of Reports</h1>\n");
 
         text.append("<ul>\n");
-        text.append("<li>Name</li>\n");
+        text.append("<li>Name; Hired; Fired; Salary</li>\n");
         List<Employee> list = store.findBy(filter);
         for (Employee employee : list) {
             text
                     .append("<li>")
                   .append(employee.getName()).append(";")
+                    .append(employee.getHired()).append(";")
+                    .append(employee.getFired()).append(";")
                     .append(employee.getSalary()).append(";")
             .append("</li>\n");
         }

@@ -15,7 +15,7 @@ public class ReportHR implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Salary;");
+        text.append("Name; Salary");
         List<Employee> list = store.findBy(filter);
         list.sort(Comparator.comparingDouble(Employee::getSalary).reversed());
         for (Employee employee : list) {
