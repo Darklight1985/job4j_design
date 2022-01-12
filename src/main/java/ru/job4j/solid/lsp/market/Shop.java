@@ -23,7 +23,6 @@ public class Shop implements Store {
             if (freshness > 0.75) {
                 food.setDiscount(0.5);
             }
-            list.add(food);
             System.out.println("Товар " + food.getName() + " добавлен в Shop");
         }
         return rsl;
