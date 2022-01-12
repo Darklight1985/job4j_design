@@ -5,10 +5,6 @@ import java.util.List;
 public class Trash implements Store {
     private List<Food> list;
 
-    public Trash(List<Food> list) {
-        this.list = list;
-    }
-
     @Override
     public boolean add(Food food) {
         boolean rsl = accept(food);
