@@ -1,7 +1,9 @@
 package ru.job4j.design.srp;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
@@ -44,11 +46,15 @@ public class ReportEngineTest {
         .append("</ul>\n")
         .append("</body>\n\n")
                 .append("</html>");
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        try {
+            assertThat(engine.generate(em -> true), is(expect.toString()));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void whenOldGeneratedAcc() {
+    public void whenGeneratedAcc() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee workerOne = new Employee("Ivan", now, now, 75.6);
@@ -62,11 +68,61 @@ public class ReportEngineTest {
                 .append(workerOne.getHired()).append(";")
                 .append(workerOne.getFired()).append(";")
                 .append(changeSalary.changer(workerOne.getSalary())).append(";");
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        try {
+            assertThat(engine.generate(em -> true), is(expect.toString()));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Ignore
+    @Test
+    public void whenGeneratedJSON() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee workerOne = new Employee("Ivan", now, now, 75.6);
+        store.add(workerOne);
+        Report engine = new ReportJSON(store);
+        SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
+        StringBuilder expect = new StringBuilder()
+                .append("Name; Hired; Fired; Salary")
+                .append(System.lineSeparator())
+                .append(workerOne.getName()).append(";")
+                .append(workerOne.getHired()).append(";")
+                .append(workerOne.getFired()).append(";")
+                .append(changeSalary.changer(workerOne.getSalary())).append(";");
+        try {
+            assertThat(engine.generate(em -> true), is(expect.toString()));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Ignore
+    @Test
+    public void whenGeneratedXML() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee workerOne = new Employee("Ivan", now, now, 75.6);
+        store.add(workerOne);
+        Report engine = new ReportXML(store);
+        SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
+        StringBuilder expect = new StringBuilder()
+                .append("Name; Hired; Fired; Salary")
+                .append(System.lineSeparator())
+                .append(workerOne.getName()).append(";")
+                .append(workerOne.getHired()).append(";")
+                .append(workerOne.getFired()).append(";")
+                .append(changeSalary.changer(workerOne.getSalary())).append(";");
+        try {
+            assertThat(engine.generate(em -> true), is(expect.toString()));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void whenOldGeneratedHr() {
+    public void whenGeneratedHr() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee workerOne = new Employee("Ivan", now, now, 75.6);
@@ -77,7 +133,11 @@ public class ReportEngineTest {
                 .append(System.lineSeparator())
                 .append(workerOne.getName()).append(";")
                 .append(workerOne.getSalary()).append(";");
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        try {
+            assertThat(engine.generate(em -> true), is(expect.toString()));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
