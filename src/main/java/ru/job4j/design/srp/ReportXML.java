@@ -18,15 +18,19 @@ public class ReportXML implements Report {
     }
 
     @Override
-    public String generate(Predicate<Employee> filter) throws JAXBException {
+    public String generate(Predicate<Employee> filter) {
 
-          JAXBContext context = JAXBContext.newInstance(Employes.class);
-           Marshaller marshaller = context.createMarshaller();
+        JAXBContext context;
+        Marshaller marshaller = null;
+        try {
+            context = JAXBContext.newInstance(Employes.class);
+            marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
 
         String xml = "";
-        StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary");
         List<Employee> list = store.findBy(filter);
         try (StringWriter writer = new StringWriter()) {
             marshaller.marshal(new Employes(list), writer);
@@ -34,10 +38,7 @@ public class ReportXML implements Report {
         } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
-        text
-                .append(System.lineSeparator())
-                .append(xml);
-        return text.toString();
+        return xml;
     }
 
     @XmlRootElement(name = "employes")

@@ -1,9 +1,8 @@
 package ru.job4j.design.srp;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
@@ -46,11 +45,7 @@ public class ReportEngineTest {
         .append("</ul>\n")
         .append("</body>\n\n")
                 .append("</html>");
-        try {
             assertThat(engine.generate(em -> true), is(expect.toString()));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -68,14 +63,9 @@ public class ReportEngineTest {
                 .append(workerOne.getHired()).append(";")
                 .append(workerOne.getFired()).append(";")
                 .append(changeSalary.changer(workerOne.getSalary())).append(";");
-        try {
             assertThat(engine.generate(em -> true), is(expect.toString()));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
-    @Ignore
     @Test
     public void whenGeneratedJSON() {
         MemStore store = new MemStore();
@@ -83,22 +73,37 @@ public class ReportEngineTest {
         Employee workerOne = new Employee("Ivan", now, now, 75.6);
         store.add(workerOne);
         Report engine = new ReportJSON(store);
-        SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
         StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary")
-                .append(System.lineSeparator())
-                .append(workerOne.getName()).append(";")
-                .append(workerOne.getHired()).append(";")
-                .append(workerOne.getFired()).append(";")
-                .append(changeSalary.changer(workerOne.getSalary())).append(";");
-        try {
+                .append("[{\"name\":\"" + workerOne.getName()).append("\",")
+                .append("\"hired\":{\"year\":"
+                        + workerOne.getHired().get(Calendar.YEAR)).append(",")
+                .append("\"month\":"
+                        + workerOne.getHired().getTime().getMonth()).append(",")
+                .append("\"dayOfMonth\":"
+                        + workerOne.getHired().get(Calendar.DAY_OF_MONTH)).append(",")
+                .append("\"hourOfDay\":"
+                        + workerOne.getHired().getTime().getHours()).append(",")
+                .append("\"minute\":"
+                        + workerOne.getHired().getTime().getMinutes()).append(",")
+                .append("\"second\":"
+                        + workerOne.getHired().getTime().getSeconds()).append("},")
+                .append("\"fired\":{\"year\":"
+                        + workerOne.getFired().get(Calendar.YEAR)).append(",")
+                .append("\"month\":"
+                        + workerOne.getFired().getTime().getMonth()).append(",")
+                .append("\"dayOfMonth\":"
+                        + workerOne.getFired().get(Calendar.DAY_OF_MONTH)).append(",")
+                .append("\"hourOfDay\":"
+                        + workerOne.getFired().getTime().getHours()).append(",")
+                .append("\"minute\":"
+                        + workerOne.getFired().getTime().getMinutes()).append(",")
+                .append("\"second\":"
+                        + workerOne.getFired().getTime().getSeconds()).append("},")
+                .append("\"salary\":"
+                        + workerOne.getSalary()).append("}]");
             assertThat(engine.generate(em -> true), is(expect.toString()));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
-    @Ignore
     @Test
     public void whenGeneratedXML() {
         MemStore store = new MemStore();
@@ -106,19 +111,18 @@ public class ReportEngineTest {
         Employee workerOne = new Employee("Ivan", now, now, 75.6);
         store.add(workerOne);
         Report engine = new ReportXML(store);
-        SalaryRubToDollar changeSalary = new SalaryRubToDollar(75.6);
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary")
-                .append(System.lineSeparator())
-                .append(workerOne.getName()).append(";")
-                .append(workerOne.getHired()).append(";")
-                .append(workerOne.getFired()).append(";")
-                .append(changeSalary.changer(workerOne.getSalary())).append(";");
-        try {
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n")
+                .append("<employes>\n")
+                .append("    <employes>\n")
+                .append("        <fired>" + formater.format(workerOne.getFired().getTime()) + "</fired>").append("\n")
+                .append("        <hired>" + formater.format(workerOne.getHired().getTime()) + "</hired>").append("\n")
+                .append("        <name>" + workerOne.getName() + "</name>").append("\n")
+                .append("        <salary>" + workerOne.getSalary() + "</salary>").append("\n")
+                .append("    </employes>\n")
+                .append("</employes>\n");
             assertThat(engine.generate(em -> true), is(expect.toString()));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -133,11 +137,7 @@ public class ReportEngineTest {
                 .append(System.lineSeparator())
                 .append(workerOne.getName()).append(";")
                 .append(workerOne.getSalary()).append(";");
-        try {
             assertThat(engine.generate(em -> true), is(expect.toString()));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
