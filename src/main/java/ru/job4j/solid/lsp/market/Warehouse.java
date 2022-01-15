@@ -19,4 +19,9 @@ public class Warehouse implements Store {
     public boolean accept(Food food) {
        return calcFresh(food) < 0.25;
     }
+
+    @Override
+    public List<Food> getListFood() {
+       return list;
+    }
 }

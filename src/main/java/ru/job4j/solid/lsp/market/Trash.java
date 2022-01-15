@@ -19,4 +19,9 @@ public class Trash implements Store {
     public boolean accept(Food food) {
         return calcFresh(food) >= 1;
     }
+
+    @Override
+    public List<Food> getListFood() {
+        return list;
+    }
 }

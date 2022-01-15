@@ -27,4 +27,9 @@ public class Shop implements Store {
         }
         return rsl;
     }
+
+    @Override
+    public List<Food> getListFood() {
+        return list;
+    }
 }
