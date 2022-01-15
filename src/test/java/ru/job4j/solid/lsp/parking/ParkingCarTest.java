@@ -1,13 +1,12 @@
 package ru.job4j.solid.lsp.parking;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ParkingCarTest {
 
-    @Ignore
     @Test
     public void addWhenOneTruck() {
         ParkingCar parkingCar = new ParkingCar(2, 1);
@@ -19,7 +18,15 @@ public class ParkingCarTest {
         assertTrue(parkingCar.add(truck));
     }
 
-    @Ignore
+    @Test
+    public void addWhenOlyPassCar() {
+        ParkingCar parkingCar = new ParkingCar(2, 0);
+        PassCar passCar = new PassCar("A815НЕ");
+        PassCar passCarTwo = new PassCar("X815PЕ");
+        parkingCar.add(passCar);
+        assertTrue(parkingCar.add(passCarTwo));
+    }
+
     @Test
     public void addWhenTwoTruck() {
         ParkingCar parkingCar = new ParkingCar(2, 1);
@@ -29,7 +36,6 @@ public class ParkingCarTest {
         assertTrue(parkingCar.add(truckTwo));
     }
 
-    @Ignore
     @Test
     public void addWhenFilled() {
         ParkingCar parkingCar = new ParkingCar(2, 1);

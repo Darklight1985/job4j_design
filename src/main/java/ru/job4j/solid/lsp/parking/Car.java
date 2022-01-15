@@ -1,8 +1,8 @@
 package ru.job4j.solid.lsp.parking;
 
-public class Car {
+public abstract class Car {
    private String number;
-   private int size;
+   private  int size;
 
     public String getNumber() {
         return number;

@@ -1,8 +1,9 @@
 package ru.job4j.solid.lsp.parking;
 
 public class PassCar extends Car {
+
+    private final int size = 1;
    private String number;
-   private int size = 1;
 
     public PassCar(String number) {
         this.number = number;
