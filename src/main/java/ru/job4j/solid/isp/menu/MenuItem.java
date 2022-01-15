@@ -4,7 +4,7 @@ package ru.job4j.solid.isp.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItem implements Item, Action {
+public class MenuItem implements Item {
     private List<Item> list;
     private String name;
 
@@ -20,11 +20,6 @@ public class MenuItem implements Item, Action {
     @Override
     public String getName() {
        return this.name;
-    }
-
-    @Override
-    public void execute() {
-
     }
 
     @Override
