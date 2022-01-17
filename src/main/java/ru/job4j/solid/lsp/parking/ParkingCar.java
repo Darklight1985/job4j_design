@@ -15,29 +15,29 @@ public class ParkingCar implements Parking {
 
     @Override
     public boolean add(Car car) {
-        boolean rsl = false;
-        if (car.getSize() > 1) {
+        boolean rsl;
+        if (car.getSize() == 1) {
+           rsl = checkPasscar(car);
+        } else {
             if (sizeForTruck != 0) {
                 storeTruck[sizeForTruck - 1] = car;
                 sizeForTruck--;
                 rsl = true;
             } else {
-                if (sizeForPassCar >= car.getSize()) {
-                    int i = 0;
-                    while (i < car.getSize()) {
-                        storePassCar[sizeForPassCar - 1] = car;
-                        i++;
-                        sizeForPassCar--;
-                    }
-                    rsl = true;
-                }
+            rsl = checkPasscar(car);
             }
-        } else {
-            if (sizeForPassCar != 0) {
+        }
+        return rsl;
+    }
+
+    public boolean checkPasscar(Car car) {
+        boolean rsl = false;
+        if (sizeForPassCar >= car.getSize()) {
+            for (int i = 0; i < car.getSize(); i++) {
                 storePassCar[sizeForPassCar - 1] = car;
                 sizeForPassCar--;
-                rsl = true;
             }
+            rsl = true;
         }
         return rsl;
     }
