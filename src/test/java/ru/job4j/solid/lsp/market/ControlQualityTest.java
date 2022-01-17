@@ -13,7 +13,7 @@ public class ControlQualityTest {
     @Test
     public void distribToShop() {
         Store shop = new Shop();
-        Food food  = new Food("Milk", LocalDate.of(2022, 01, 15),
+        Food food  = new Food("Milk", LocalDate.of(2022, 01, 19),
                 LocalDate.of(2021, 12, 31), 200.0, 0);
         List<Store> list = new ArrayList<>();
         list.add(shop);
