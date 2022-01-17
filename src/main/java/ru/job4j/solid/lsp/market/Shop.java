@@ -1,5 +1,6 @@
 package ru.job4j.solid.lsp.market;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Shop implements Store {
 
     @Override
     public List<Food> getListFood() {
-        List<Food> newList = null;
+        List<Food> newList = new ArrayList<>(list);
         Collections.copy(newList, list);
         list.clear();
         return newList;
