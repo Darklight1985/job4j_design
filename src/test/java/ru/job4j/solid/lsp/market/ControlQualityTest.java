@@ -17,7 +17,6 @@ public class ControlQualityTest {
                 LocalDate.of(2021, 12, 31), 200.0, 0);
         List<Store> list = new ArrayList<>();
         list.add(shop);
-        double fresh = shop.calcFresh(food);
         assertTrue(shop.accept(food));
     }
 
