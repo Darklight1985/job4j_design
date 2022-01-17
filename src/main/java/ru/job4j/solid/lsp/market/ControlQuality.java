@@ -1,5 +1,6 @@
 package ru.job4j.solid.lsp.market;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ControlQuality {
     }
 
     public void resort() {
-        List<Food> storeList = null;
+        List<Food> storeList = new ArrayList<>();
         for (Store store: list) {
             storeList.addAll(store.getListFood());
         }
