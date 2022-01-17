@@ -2,7 +2,6 @@ package ru.job4j.solid.lsp.market;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ControlQuality {
     private List<Store> list;
@@ -20,13 +19,9 @@ public class ControlQuality {
     }
 
     public void resort() {
-        List<Food> storeList = list.stream()
-                .flatMap(store -> store
-                        .getListFood()
-                        .stream())
-                .collect(Collectors.toList());
+        List<Food> storeList = null;
         for (Store store: list) {
-            store.getListFood().clear();
+            storeList.addAll(store.getListFood());
         }
           for (Food food: storeList) {
               distrib(food);
