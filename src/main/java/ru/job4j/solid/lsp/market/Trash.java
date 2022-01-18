@@ -1,7 +1,6 @@
 package ru.job4j.solid.lsp.market;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Trash implements Store {
