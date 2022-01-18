@@ -25,7 +25,6 @@ public class Warehouse implements Store {
     @Override
     public List<Food> getListFood() {
         List<Food> newList = new ArrayList<>(list);
-        Collections.copy(newList, list);
         list.clear();
        return newList;
     }
