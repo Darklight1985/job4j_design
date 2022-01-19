@@ -1,29 +1,28 @@
 package ru.job4j.solid.isp.menu;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItem implements Item {
-    private List<Item> list;
+public class MenuItem {
+    private Action action;
+    private List<MenuItem> list;
     private String name;
 
-    public MenuItem(String name) {
+    protected MenuItem(String name, Action action) {
         this.name = name;
+        this.action = action;
         list = new ArrayList<>();
     }
 
-    public List<Item> getList() {
+    public List<MenuItem> getList() {
         return list;
     }
 
-    @Override
     public String getName() {
        return this.name;
     }
 
-    @Override
-    public void add(Item item) {
-        list.add(item);
+    public Action getAction() {
+        return action;
     }
 }

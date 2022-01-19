@@ -1,9 +1,6 @@
 package ru.job4j.solid.isp.menu;
 
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.ListIterator;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class StartUi {
@@ -11,34 +8,24 @@ public class StartUi {
     public static void main(String[] args) {
         boolean run = true;
         Scanner scanner = new Scanner(System.in);
-        List<Item> list = new ArrayList<>();
-        MenuItem start = new MenuItem("1. Главное меню");
-        MenuItem sunMenuOne = new MenuItem("1.1. Пункт меню");
-        MenuItem subMenuTwo = new MenuItem("1.2. Пункт меню");
-        MenuItem subMenuThree = new MenuItem("1.3. Пункт меню");
-        start.add(sunMenuOne);
-        start.add(subMenuTwo);
-        start.add(subMenuThree);
-        MenuItem exit = new MenuItem("2. Выход");
-        list.add(start);
-        list.add(exit);
+        MenuItem start = new MenuItem("Корневое меню", new ItemAction());
+        Menu menu = new Menu(start);
+        MenuItem sunMenuOne = new MenuItem("1.1. Пункт меню", new ItemAction());
+        MenuItem subMenuTwo = new MenuItem("1.2. Пункт меню", new ItemAction());
+        MenuItem subMenuThree = new MenuItem("1.3. Пункт меню", new ItemAction());
+        menu.add("Корневое меню", "1. Главное меню", new ItemAction());
+        menu.add("Корневое меню", "2. Выход", new ExitAction());
+        menu.add("1. Главное меню", "1.1. Пункт меню", new ItemAction());
+        menu.add("1. Главное меню", "1.2. Пункт меню", new ItemAction());
 
-        while (run) {
-            ListIterator<Item> listIterator = list.listIterator();
-            while (listIterator.hasNext()) {
-                Item item = listIterator.next();
-                System.out.println(item.getName());
-                if (item.getList().size() > 0) {
-                    list.addAll(list.indexOf(item) + 1, item.getList());
-                    listIterator = list.listIterator();
-                    listIterator.next();
-                }
-            }
+        System.out.println(menu);
+
+       while (run) {
             System.out.println("Выберите пункт меню");
             String select = scanner.nextLine();
-            if (select.equals("Выход")) {
-                run = false;
-            }
+           Optional<MenuItem> optParent = menu.find(select);
+           optParent.get().getAction().execute();
         }
     }
+
 }
