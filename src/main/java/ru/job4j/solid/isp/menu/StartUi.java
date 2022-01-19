@@ -10,9 +10,6 @@ public class StartUi {
         Scanner scanner = new Scanner(System.in);
         MenuItem start = new MenuItem("Корневое меню", new ItemAction());
         Menu menu = new Menu(start);
-        MenuItem sunMenuOne = new MenuItem("1.1. Пункт меню", new ItemAction());
-        MenuItem subMenuTwo = new MenuItem("1.2. Пункт меню", new ItemAction());
-        MenuItem subMenuThree = new MenuItem("1.3. Пункт меню", new ItemAction());
         menu.add("Корневое меню", "1. Главное меню", new ItemAction());
         menu.add("Корневое меню", "2. Выход", new ExitAction());
         menu.add("1. Главное меню", "1.1. Пункт меню", new ItemAction());
