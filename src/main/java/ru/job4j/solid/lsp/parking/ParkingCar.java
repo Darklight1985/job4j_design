@@ -1,6 +1,7 @@
 package ru.job4j.solid.lsp.parking;
 
 public class ParkingCar implements Parking {
+    private final int oneSize = 1;
     private int sizeForPassCar;
     private int sizeForTruck;
     private Car[] storePassCar;
@@ -16,11 +17,11 @@ public class ParkingCar implements Parking {
     @Override
     public boolean add(Car car) {
         boolean rsl;
-        if (car.getSize() == 1) {
+        if (car.getSize() == oneSize) {
            rsl = checkPasscar(car);
         } else {
             if (sizeForTruck != 0) {
-                storeTruck[sizeForTruck - 1] = car;
+                storeTruck[sizeForTruck - oneSize] = car;
                 sizeForTruck--;
                 rsl = true;
             } else {
@@ -34,7 +35,7 @@ public class ParkingCar implements Parking {
         boolean rsl = false;
         if (sizeForPassCar >= car.getSize()) {
             for (int i = 0; i < car.getSize(); i++) {
-                storePassCar[sizeForPassCar - 1] = car;
+                storePassCar[sizeForPassCar - oneSize] = car;
                 sizeForPassCar--;
             }
             rsl = true;
