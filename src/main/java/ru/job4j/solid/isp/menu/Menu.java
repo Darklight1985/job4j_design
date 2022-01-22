@@ -36,20 +36,23 @@ public class Menu {
     }
 
         @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        List<MenuItem> data = new LinkedList<>();
-        data.addAll(this.root.getList());
-        ListIterator<MenuItem> listIterator = data.listIterator();
-        while (listIterator.hasNext()) {
-            MenuItem item = listIterator.next();
-            str.append(item.getName() + "\n");
-            if (item.getList().size() > 0) {
-                data.addAll(data.indexOf(item) + 1, item.getList());
-                listIterator = data.listIterator();
-                listIterator.next();
+        public String toString() {
+            StringBuilder str = new StringBuilder();
+           Stack<MenuItem> stack = new Stack();
+            MenuItem current;
+            if (root.getList().size() > 0) {
+                for (MenuItem item : root.getList()) {
+                    stack.push(item);
+                }
             }
-        }
-        return str.toString();
-    }
+            while (!stack.isEmpty()) {
+                 current = stack.pop();
+                str.append(current.getName() + System.lineSeparator());
+                if (current.getList().size() > 0) {
+                    for (MenuItem item: current.getList()) {
+                    stack.push(item); }
+                }
+                }
+            return str.toString();
+            }
 }
