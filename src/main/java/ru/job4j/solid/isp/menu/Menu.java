@@ -41,7 +41,8 @@ public class Menu {
            Stack<MenuItem> stack = new Stack();
             MenuItem current;
             if (root.getList().size() > 0) {
-                for (ListIterator<MenuItem> i = root.getList().listIterator(root.getList().size()); i.hasPrevious();) {
+                for (ListIterator<MenuItem> i
+                     = root.getList().listIterator(root.getList().size()); i.hasPrevious();) {
                     stack.push(i.previous());
                 }
             }
@@ -49,7 +50,8 @@ public class Menu {
                 current = stack.pop();
                 str.append(current.getName() + System.lineSeparator());
                 if (current.getList().size() > 0) {
-                    for (ListIterator<MenuItem> i = current.getList().listIterator(current.getList().size()); i.hasPrevious();) {
+                    for (ListIterator<MenuItem> i = current.getList()
+                            .listIterator(current.getList().size()); i.hasPrevious();) {
                         stack.push(i.previous());
                     }
                 }
